@@ -2,7 +2,7 @@
 # using: 
 # Revision: 1.19 
 # Source: /local/reps/CMSSW/CMSSW/Configuration/Applications/python/ConfigBuilder.py,v 
-# with command line options: Configuration/GenProduction/python/hnl_genfragment.py --era Run3_2024 --customise Configuration/DataProcessing/Utils.addMonitoring --beamspot DBrealistic --step LHE,GEN,SIM --geometry DB:Extended --conditions 140X_mcRun3_2024_realistic_v26 --customise_commands process.RandomNumberGeneratorService.externalLHEProducer.initialSeed=int(1)\nprocess.source.numberEventsInLuminosityBlock=cms.untracked.uint32(100) --datatier GEN-SIM --eventcontent RAWSIM --python_filename EXO-RunIII2024Summer24wmLHEGS-00259_1_cfg.py --fileout file:EXO-RunIII2024Summer24wmLHEGS-00259.root --number 10 --no_exec --mc
+# with command line options: Configuration/GenProduction/python/hnl_genfragment.py --era Run3_2024 --customise Configuration/DataProcessing/Utils.addMonitoring --beamspot DBrealistic --step LHE,GEN,SIM --geometry DB:Extended --conditions 140X_mcRun3_2024_realistic_v26 --customise_commands process.RandomNumberGeneratorService.externalLHEProducer.initialSeed=int(1)\nprocess.source.numberEventsInLuminosityBlock=cms.untracked.uint32(100) --datatier GEN-SIM --eventcontent RAWSIM --python_filename EXO-RunIII2024Summer24wmLHEGS-00259_1_cfg.py --fileout file:EXO-RunIII2024Summer24wmLHEGS-00259.root --number 100 --number_out 100 --no_exec --mc
 import FWCore.ParameterSet.Config as cms
 
 from Configuration.Eras.Era_Run3_2024_cff import Run3_2024
@@ -26,8 +26,8 @@ process.load('Configuration.StandardSequences.EndOfProcess_cff')
 process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_cff')
 
 process.maxEvents = cms.untracked.PSet(
-    input = cms.untracked.int32(10),
-    output = cms.optional.untracked.allowed(cms.int32,cms.PSet)
+    input = cms.untracked.int32(100),
+    output = cms.untracked.int32(100)
 )
 
 # Input source
@@ -67,7 +67,7 @@ process.options = cms.untracked.PSet(
 
 # Production Info
 process.configurationMetadata = cms.untracked.PSet(
-    annotation = cms.untracked.string('Configuration/GenProduction/python/hnl_genfragment.py nevts:10'),
+    annotation = cms.untracked.string('Configuration/GenProduction/python/hnl_genfragment.py nevts:100'),
     name = cms.untracked.string('Applications'),
     version = cms.untracked.string('$Revision: 1.19 $')
 )
@@ -104,7 +104,15 @@ process.generator = cms.EDFilter("Pythia8ConcurrentHadronizerFilter",
         parameterSets = cms.vstring(
             'pythia8CommonSettings',
             'pythia8CP5Settings',
-            'pythia8PSweightsSettings'
+            'pythia8PSweightsSettings',
+            'processParameters'
+        ),
+        processParameters = cms.vstring(
+            'SLHA:minMassSM = 1000.',
+            'ParticleDecays:limitTau0 = on',
+            'ParticleDecays:tau0Max = 100000.0',
+            'ParticleDecays:allowPhotonRadiation = on',
+            'LesHouches:setLifetime = 2'
         ),
         pythia8CP5Settings = cms.vstring(
             'Tune:pp 14',
@@ -161,7 +169,7 @@ process.generator = cms.EDFilter("Pythia8ConcurrentHadronizerFilter",
 process.externalLHEProducer = cms.EDProducer("ExternalLHEProducer",
     args = cms.vstring('root://cmsxrootd.fnal.gov//store/user/kkwok/llp/gridpack/HNL_tau_mN_2_ctau_1000_13p6TeV_slc7_amd64_gcc700_CMSSW_10_6_19_tarball.tar.xz'),
     generateConcurrently = cms.untracked.bool(True),
-    nEvents = cms.untracked.uint32(10),
+    nEvents = cms.untracked.uint32(100),
     numberOfParameters = cms.uint32(1),
     outputFile = cms.string('cmsgrid_final.lhe'),
     scriptName = cms.FileInPath('GeneratorInterface/LHEInterface/data/run_generic_tarball_xrootd.sh')
