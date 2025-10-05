@@ -1,5 +1,3 @@
-import glob
-
 def replace_line_in_file(old_file,new_file, target_line, new_line):
     # Read all lines from the file
     with open(old_file, 'r') as file:
@@ -13,8 +11,7 @@ def replace_line_in_file(old_file,new_file, target_line, new_line):
             else:
                 file.write(line)
 
-# Example usage
-old_file = 'hnl_genfragment.py'
+old_file = 'EXO-RunIII2024Summer24wmLHEGS-00259_1_cfg.py'
 target_line = 'args'
 import glob
 
@@ -26,5 +23,7 @@ for f in files:
     decay = f.split('_')[1]
     print(gridpack, decay,m,ctau)
     new_line = f'   args = cms.vstring(\'{gridpack}\'),'
-    new_file = f'hnl_{decay}_mN_{m}_ctau_{ctau}_13p6TeV_fragment.py'
+    new_file = f'EXO-RunIII2024Summer24_hnl_{decay}_mN_{m}_ctau_{ctau}.py'
     replace_line_in_file(old_file,new_file, target_line, new_line)
+
+
