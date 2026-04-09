@@ -143,7 +143,7 @@ python3 .../multi_crab_submit_MDSNANO.py
 
 > **Note:** Submitting from CMSSW_15_0_2 means CRAB ships that release to the grid. The pset global tag (`150X_mcRun3_2024_realistic_v2`) was originally for CMSSW_14_X but works in practice.
 
-### Chain the Above Steps via the CLI
+## Chain the Above Steps via the CLI
 
 I was getting issues with `nohup` failing because of gridpack, so I switched to `tmux`.
 On the terminal 
