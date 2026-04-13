@@ -149,8 +149,12 @@ I was getting issues with `nohup` failing because of gridpack, so I switched to 
 On the terminal 
 ```bash
 tmux new -s crab_chain
+source /cvmfs/cms.cern.ch/cmsset_default.sh
 cmsenv
 cmssw-el8
+source /cvmfs/cms.cern.ch/cmsset_default.sh
+cmsenv
+source /cvmfs/cms.cern.ch/crab3/crab.sh
 voms-proxy-init --voms cms --valid 192:00
 python3 LLPSignalGeneration/crab_chain_submit.py 2>&1 | tee chain.log # tee allows output to terminal, too
 ```
