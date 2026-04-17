@@ -243,6 +243,7 @@ The large uncertainty on the efficiency (`0.1 +/- 0.1`) is purely due to 10-even
   rm -rf crab/crab_<taskname>
   ```
 - `config.Data.inputDBS = 'phys03'` for all USER datasets; `'global'` only for official CMS datasets
+- **Check your dataset was published to DBS:** `'dasgoclient --query="file dataset=/ALP_gammaalp_0W1B_2jets_8dot6_ct_100/LLPs-crab_Summer24_v2_gammaalp_0W1B_2jets_8dot6_ct_100-4aaf545a278e22c2a9b29ecad65c49e4/USER instance=prod/phys03"'` where the dataset path is shown from `crab status` command.
 
 ---
 
