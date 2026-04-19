@@ -235,6 +235,7 @@ The large uncertainty on the efficiency (`0.1 +/- 0.1`) is purely due to 10-even
 
 - **Monitor jobs:** `crab status -d crab/<taskname>`
 - **Verbose errors:** `crab status --verboseErrors -d crab/<taskname>`
+- **Kill crab request:** `crab kill -d crab/crab_gammaalp_0W1B_2jets_8dot6_ct_100_Summer24_DRstep1_v3`
 - **Get logs:** `crab getlog -d crab/<taskname>`
 - **Job state progression:** `submitted → running → transferring → finished`
 - `transferring` is normal even for small jobs — file staging to T2_US_UCSD can take 10–30 minutes
