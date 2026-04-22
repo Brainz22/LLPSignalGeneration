@@ -149,8 +149,12 @@ I was getting issues with `nohup` failing because of gridpack, so I switched to 
 On the terminal 
 ```bash
 tmux new -s crab_chain
+source /cvmfs/cms.cern.ch/cmsset_default.sh
 cmsenv
 cmssw-el8
+source /cvmfs/cms.cern.ch/cmsset_default.sh
+cmsenv
+source /cvmfs/cms.cern.ch/crab3/crab.sh
 voms-proxy-init --voms cms --valid 192:00
 python3 LLPSignalGeneration/crab_chain_submit.py 2>&1 | tee chain.log # tee allows output to terminal, too
 ```
@@ -231,6 +235,7 @@ The large uncertainty on the efficiency (`0.1 +/- 0.1`) is purely due to 10-even
 
 - **Monitor jobs:** `crab status -d crab/<taskname>`
 - **Verbose errors:** `crab status --verboseErrors -d crab/<taskname>`
+- **Kill crab request:** `crab kill -d crab/crab_gammaalp_0W1B_2jets_8dot6_ct_100_Summer24_DRstep1_v3`
 - **Get logs:** `crab getlog -d crab/<taskname>`
 - **Job state progression:** `submitted → running → transferring → finished`
 - `transferring` is normal even for small jobs — file staging to T2_US_UCSD can take 10–30 minutes
@@ -239,6 +244,7 @@ The large uncertainty on the efficiency (`0.1 +/- 0.1`) is purely due to 10-even
   rm -rf crab/crab_<taskname>
   ```
 - `config.Data.inputDBS = 'phys03'` for all USER datasets; `'global'` only for official CMS datasets
+- **Check your dataset was published to DBS:** `'dasgoclient --query="file dataset=/ALP_gammaalp_0W1B_2jets_8dot6_ct_100/LLPs-crab_Summer24_v2_gammaalp_0W1B_2jets_8dot6_ct_100-4aaf545a278e22c2a9b29ecad65c49e4/USER instance=prod/phys03"'` where the dataset path is shown from `crab status` command.
 
 ---
 
